@@ -18,12 +18,12 @@ fbCommand = '/usr/local/bin/fbsimctl'
 
 def addSimulator(simulatorID):
     if len(simulatorID) == 0:
-        print("设备ID不能为空")
-        return
+        errorText = "设备ID不能为空"
+        print(errorText)
+        return False, errorText
     simListReader = os.popen('%s list' % fbCommand)
     simList = simListReader.readlines()
     foundSimulatorID = False
-
 
     for line in simList:
         if line.startswith(simulatorID):
@@ -37,20 +37,25 @@ def addSimulator(simulatorID):
                 currentSimulators = f.read().split('\n')
                 f.close()
                 if writeText in currentSimulators:
-                    print("该设备已存在")
+                    errorText = "该设备已存在"
+                    print(errorText)
                     printSimulatorList()
-                    return
+                    return False, errorText
 
             if os.path.isfile(simulatorFileName) and os.path.getsize(simulatorFileName) > 0:
                 writeText = "\n%s" % writeText
             f = open(simulatorFileName, 'a+')
             f.write(writeText)
             f.close()
-            print("添加模拟器成功")
+            text = "添加模拟器成功"
+            print(text)
             printSimulatorList()
+            return True, text
             break
     if foundSimulatorID == False:
-        print("您输入的设备ID不在模拟器列表中,请检查之后重试")
+        errorText = "您输入的设备ID不在模拟器列表中,请检查之后重试"
+        print(errorText)
+        return False, errorText
 
 def getSimulatorDescList(fileName):
     f = open(fileName, 'r')
@@ -61,8 +66,9 @@ def getSimulatorDescList(fileName):
 def bootSimulator():
     simulatorDescList = getSimulatorDescList(simulatorFileName)
     if len(simulatorDescList) == 0:
-        print("设备列表为空")
-        return False
+        errorText = "设备列表为空"
+        print(errorText)
+        return False, errorText
 
     simulatorList = []
     for simulatorDesc in simulatorDescList:
@@ -74,7 +80,7 @@ def bootSimulator():
 
     command = "%s %sboot" % (fbCommand, simulatorListString)
     os.system(command)
-    return True
+    return True, "启动模拟器成功"
 
 def setAppPath(appPath):
     f = open(appPathFileName, 'w')
@@ -90,12 +96,13 @@ def getAppPath():
 def installApp():
     appPath = getAppPath()
     if len(appPath) == 0:
-        print("设备列表为空")
-        return False
+        errorText = "设备列表为空"
+        print(errorText)
+        return False, errorText
 
     command = "%s install %s" % (fbCommand, appPath)
     os.system(command)
-    return True
+    return True, "app安装成功"
 
 def setAppBundleID(bundleID):
     f = open(appBundleIDFileName, 'w')
@@ -111,18 +118,20 @@ def getAppBundleID():
 def launchApp():
     bundleID = getAppBundleID()
     if len(bundleID) == 0:
-        print("设备列表为空")
-        return False
+        errorText = "设备列表为空"
+        print(errorText)
+        return False, errorText
     command = "%s launch %s" % (fbCommand, bundleID)
     os.system(command)
-    return True
+    return True, "app启动成功"
 
 def autoLaunchApp():
-    if bootSimulator():
-        if installApp():
-            if launchApp():
-                return True
-    return False
+    result, error = bootSimulator()
+    if result:
+        result, error = installApp()
+        if result:
+            result, error = launchApp()
+    return result, error
 
 def printSimulatorList():
     fileName = "simulators"
