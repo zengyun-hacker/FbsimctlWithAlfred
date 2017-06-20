@@ -6,6 +6,19 @@
 	<string>me.codingtime.alfred.FBSimulatorControl</string>
 	<key>connections</key>
 	<dict>
+		<key>31B8387C-E146-43F0-A42D-288A5FF7AC34</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>03244A9E-708E-49CD-9777-3CE2298A7C66</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 		<key>6F5919A3-5D8D-41DC-A1BA-4BD527D57A46</key>
 		<array>
 			<dict>
@@ -32,11 +45,37 @@
 				<false/>
 			</dict>
 		</array>
+		<key>9F41BACB-DBA4-4335-937F-B161220267A7</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>DED82CC2-A28E-492F-B387-4D70F017E484</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 		<key>B4572F65-4466-4FCB-B00C-BC5A2BF6B510</key>
 		<array>
 			<dict>
 				<key>destinationuid</key>
 				<string>CA9EF727-4A97-4A80-9498-1887D490955D</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>B4B17866-C5DA-4CA8-8B9E-8B9313DFDD27</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>05EA4C47-04B7-4082-88A9-770635E0A508</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -85,6 +124,58 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>removeextension</key>
+				<false/>
+				<key>text</key>
+				<string>{query}</string>
+				<key>title</key>
+				<string>添加设备</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>3AE35068-8A32-4FA0-BF1E-00A3DD530B80</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>68</integer>
+				<key>script</key>
+				<string># -*- coding: utf-8 -*-
+import sys
+
+query = sys.argv[1]
+
+import FBSimctrlTool
+
+result, resultText = FBSimctrlTool.addSimulator(query);
+print(resultText)</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>3</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>CA9EF727-4A97-4A80-9498-1887D490955D</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>argumenttype</key>
 				<integer>0</integer>
 				<key>keyword</key>
@@ -102,56 +193,6 @@
 			<string>B4572F65-4466-4FCB-B00C-BC5A2BF6B510</string>
 			<key>version</key>
 			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>lastpathcomponent</key>
-				<false/>
-				<key>onlyshowifquerypopulated</key>
-				<false/>
-				<key>removeextension</key>
-				<false/>
-				<key>text</key>
-				<string></string>
-				<key>title</key>
-				<string></string>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.output.notification</string>
-			<key>uid</key>
-			<string>3AE35068-8A32-4FA0-BF1E-00A3DD530B80</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>concurrently</key>
-				<false/>
-				<key>escaping</key>
-				<integer>68</integer>
-				<key>script</key>
-				<string>import sys
-
-query = sys.argv[1]
-
-import FBSimctrlTool
-
-FBSimctrlTool.addSimulator(query);</string>
-				<key>scriptargtype</key>
-				<integer>1</integer>
-				<key>scriptfile</key>
-				<string></string>
-				<key>type</key>
-				<integer>3</integer>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.script</string>
-			<key>uid</key>
-			<string>CA9EF727-4A97-4A80-9498-1887D490955D</string>
-			<key>version</key>
-			<integer>2</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -186,7 +227,8 @@ FBSimctrlTool.addSimulator(query);</string>
 
 import FBSimctrlTool
 
-FBSimctrlTool.autoLaunchApp()</string>
+result, resultText = FBSimctrlTool.autoLaunchApp()
+print(resultText)</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
@@ -200,6 +242,27 @@ FBSimctrlTool.autoLaunchApp()</string>
 			<string>B4B17866-C5DA-4CA8-8B9E-8B9313DFDD27</string>
 			<key>version</key>
 			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>removeextension</key>
+				<false/>
+				<key>text</key>
+				<string>{query}</string>
+				<key>title</key>
+				<string>启动应用</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>05EA4C47-04B7-4082-88A9-770635E0A508</string>
+			<key>version</key>
+			<integer>1</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -225,6 +288,27 @@ FBSimctrlTool.autoLaunchApp()</string>
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>removeextension</key>
+				<false/>
+				<key>text</key>
+				<string></string>
+				<key>title</key>
+				<string>设置app路径成功</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>03244A9E-708E-49CD-9777-3CE2298A7C66</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>concurrently</key>
 				<false/>
 				<key>escaping</key>
@@ -236,7 +320,7 @@ query = sys.argv[1]
 
 import FBSimctrlTool
 
-FBSimctrlTool.setAppPath(query)</string>
+result = FBSimctrlTool.setAppPath(query)</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
@@ -250,6 +334,27 @@ FBSimctrlTool.setAppPath(query)</string>
 			<string>31B8387C-E146-43F0-A42D-288A5FF7AC34</string>
 			<key>version</key>
 			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>removeextension</key>
+				<false/>
+				<key>text</key>
+				<string></string>
+				<key>title</key>
+				<string>设置bundle ID成功</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>DED82CC2-A28E-492F-B387-4D70F017E484</string>
+			<key>version</key>
+			<integer>1</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -306,6 +411,20 @@ FBSimctrlTool.setAppBundleID(query)</string>
 	<string></string>
 	<key>uidata</key>
 	<dict>
+		<key>03244A9E-708E-49CD-9777-3CE2298A7C66</key>
+		<dict>
+			<key>xpos</key>
+			<integer>600</integer>
+			<key>ypos</key>
+			<integer>420</integer>
+		</dict>
+		<key>05EA4C47-04B7-4082-88A9-770635E0A508</key>
+		<dict>
+			<key>xpos</key>
+			<integer>600</integer>
+			<key>ypos</key>
+			<integer>260</integer>
+		</dict>
 		<key>31B8387C-E146-43F0-A42D-288A5FF7AC34</key>
 		<dict>
 			<key>xpos</key>
@@ -316,7 +435,7 @@ FBSimctrlTool.setAppBundleID(query)</string>
 		<key>3AE35068-8A32-4FA0-BF1E-00A3DD530B80</key>
 		<dict>
 			<key>xpos</key>
-			<integer>600</integer>
+			<integer>590</integer>
 			<key>ypos</key>
 			<integer>110</integer>
 		</dict>
@@ -368,6 +487,13 @@ FBSimctrlTool.setAppBundleID(query)</string>
 			<integer>130</integer>
 			<key>ypos</key>
 			<integer>420</integer>
+		</dict>
+		<key>DED82CC2-A28E-492F-B387-4D70F017E484</key>
+		<dict>
+			<key>xpos</key>
+			<integer>600</integer>
+			<key>ypos</key>
+			<integer>560</integer>
 		</dict>
 	</dict>
 	<key>webaddress</key>
